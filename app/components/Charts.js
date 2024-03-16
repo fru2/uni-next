@@ -8,7 +8,7 @@ import CardContainer from './CardContainer';
 // TODO: Update the props of chart to receive data from the database
 function LineChartComp() {
     return (
-        <CardContainer title='gg' element={
+        <CardContainer title='Chart title' element={
             <LineChart
                 xAxis={[{ data: [1, 2, 3, 5, 8, 10, 12, 15, 16] }]}
                 series={[
@@ -26,7 +26,7 @@ function LineChartComp() {
                 ]}
                 height={200}
                 width={500}
-                margin={{ top: 10, bottom: 20 }}
+                margin={{ top: 10, bottom: 20, left: 16, right: 16 }}
             />
         }>
         </CardContainer>
