@@ -5,7 +5,9 @@ import { LineChartComp } from './components/Charts';
 import iconStats from '@/app/icons/equalizer.svg';
 import StatsCard from "./components/StatsCard";
 
-export default function Home() {
+
+
+export default function Home({paperCount}) {
   return (
     <>
       <Nav></Nav>
