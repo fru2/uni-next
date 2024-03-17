@@ -25,7 +25,6 @@ function LineChartComp() {
                     },
                 ]}
                 height={200}
-                width={500}
                 margin={{ top: 10, bottom: 20, left: 16, right: 16 }}
             />
         }>
