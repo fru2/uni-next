@@ -5,6 +5,7 @@ import CardContainer from "./components/CardContainer";
 import { LineChartComp, BarChartComp } from './components/Charts';
 import iconStats from '@/app/icons/equalizer.svg';
 import StatsCard from "./components/StatsCard";
+import ArticlesList from "./components/ArticlesList";
 
 export default function Home() {
   return (
@@ -24,7 +25,10 @@ export default function Home() {
           <StatsCard icon={iconStats} heading='Card context goes here' subhead='Short desc' />
         </div>
 
-        <h3 className="text-2xl mt-6 mb-4">Contributors</h3>
+        <h3 className="text-2xl mt-6 mb-4">Articles</h3>
+
+        <ArticlesList route='researchpaper'></ArticlesList>
+        <div className="h-6"></div>
       </main>
     </>
   );
