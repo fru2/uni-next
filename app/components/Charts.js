@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { LineChart } from "@mui/x-charts"
+import { BarChart, LineChart } from "@mui/x-charts"
 import CardContainer from './CardContainer';
 
 
@@ -33,4 +33,20 @@ function LineChartComp() {
     )
 }
 
-export { LineChartComp }
+
+
+
+function BarChartComp({title}){
+    return(
+      <CardContainer title={title} element={
+        <BarChart 
+          xAxis={[{ scaleType: 'band', data: [2023, 2024, 2022]}]}
+          series={[{ scaleType: 'linear', data: [576, 202, 191] }]}
+          height={200}
+          margin={{ top: 10, bottom: 20, left: 16, right: 16 }}
+        />
+      }></CardContainer>
+    )
+  }
+  
+  export { LineChartComp, BarChartComp }
