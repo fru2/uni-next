@@ -18,7 +18,7 @@ export default function Home() {
           <StatsCard icon={iconStats} heading='Total publications' subhead='Articles published by PES' route='paperCount'/>
           <StatsCard icon={iconStats} heading='Card context goes here' subhead='Short desc' />
           <div className="col-span-2 row-span-2">
-            <BarChartComp title='Publications per year'/>
+            <BarChartComp title='Publications per year' route='yearCount'/>
           </div>
           <StatsCard icon={iconStats} heading='Card context goes here' subhead='Short desc' />
           <StatsCard icon={iconStats} heading='Card context goes here' subhead='Short desc' />
