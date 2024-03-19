@@ -24,11 +24,11 @@ export default function StatsCard({ icon, heading, subhead, route, id }) {
     };
 
     fetchData();
-  }, []);
+  }, [route]);
 
 
   return (
-    <CardContainer element={
+    <CardContainer>
       <div className='flex flex-col justify-between h-full'>
         <div className='flex justify-between mb-4 items-center'>
           <span className='total-count font-semibold text-xl'>{dataItems.count}</span>
@@ -41,7 +41,6 @@ export default function StatsCard({ icon, heading, subhead, route, id }) {
           <span className='text-gray-400 text-xs'>{subhead}</span>
         </div>
       </div>
-    }>
     </CardContainer>
 
   )

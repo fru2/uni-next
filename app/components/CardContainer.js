@@ -1,10 +1,14 @@
 import React from 'react'
 
-export default function CardContainer({title, element}) {
+
+export default function CardContainer({title, children, disablePd, disableHover}) {
   return (
-    <div className='bg-white border-[1px] rounded-lg px-4 py-4 w-full hover:border-blue-500 hover:bg-blue-50'>
+    <div className={`bg-white border-[1px] rounded-lg w-full 
+      ${disablePd == null ? 'px-4 py-4' : ''}  
+      ${disableHover == null ? "hover:bg-blue-50 hover:border-blue-500" : ''}`
+    }>
         {title ? <span className='mb-6 block font-medium'>{title}</span> : null}
-        {element}
+        {children}
     </div>
   )
 }

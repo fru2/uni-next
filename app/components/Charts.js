@@ -7,7 +7,7 @@ import CardContainer from './CardContainer';
 // TODO: Update the props of chart to receive data from the database
 function LineChartComp() {
   return (
-    <CardContainer title='Chart title' element={
+    <CardContainer title='Chart title'>
       <LineChart
         xAxis={[{ data: [1, 2, 3, 5, 8, 10, 12, 15, 16] }]}
         series={[
@@ -26,7 +26,6 @@ function LineChartComp() {
         height={200}
         margin={{ top: 10, bottom: 20, left: 16, right: 16 }}
       />
-    }>
     </CardContainer>
 
   )
@@ -54,22 +53,20 @@ function BarChartComp({ title, route }) {
     };
 
     fetchData();
-  }, []);
+  }, [route]);
   return (
-
-    <CardContainer title={title} element={
+    <CardContainer title={title}>
       <>
         {dataItems.result.length > 0 ?
           <BarChart
-            xAxis={[{ scaleType: 'band', data: dataItems.result.map(item => item._id) }]}
-            series={[{ scaleType: 'linear', data: dataItems.result.map(item => item.count) }]}
+            xAxis={[{ scaleType: 'band', data: dataItems.result.map(item => item._id.toString()) }]}
+            series={[{ scaleType: 'linear', data: dataItems.result.map(item => item.count), color: '#A1ACE6' }]}
             height={200}
-            margin={{ top: 10, bottom: 20, left: 16, right: 16 }}
+            margin={{ top: 10, bottom: 20, left: 30, right: 16 }}
           />
-         : <div className='min-h-[12.5rem]'></div>
+          : <div className='min-h-[12.5rem]'></div>
         }
       </>
-    }>
     </CardContainer>
   )
 }
