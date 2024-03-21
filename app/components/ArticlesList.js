@@ -2,21 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import CustomTooltip from "./CustomTooltip";
 import CardContainer from "./CardContainer";
-import { Tooltip } from "@mui/material";
-
-// const columns = [
-//   { field: 'Title', headerName: 'Article title', flex: 1 },
-//   { field: 'Authors', headerName: 'Authors', flex: 1 },
-//   {
-//     field: 'Affiliations',
-//     headerName: 'Affiliations',
-//     flex: 1,
-//   }
-// ]
+import { Dialog} from "@mui/material";
+import DialogData from "./DialogContent";
 
 export default function ArticlesList({ route }) {
   const [dataItems, setDataItems] = useState([]);
   const cardRef = useRef(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dataItem, setDataItem] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,12 +17,6 @@ export default function ArticlesList({ route }) {
         const response = await fetch(`/api/${route}`);
         if (response.ok) {
           const data = await response.json();
-          // const rows = data.map((item, index) => ({
-          //   id: index + 1,
-          //   Title: item.Title,
-          //   Authors: Object.values(item.Authors).join('; '),
-          //   Affiliations: item.Affiliations ? Object.values(item.Affiliations).join('; ') : '',
-          // }));
           setDataItems(data);
         } else {
           throw new Error('Failed to fetch data');
@@ -42,20 +29,12 @@ export default function ArticlesList({ route }) {
     fetchData();
   }, [route]);
 
+  const handleRowClick = (item) => {
+    setDataItem(item);
+    setShowDialog(true);
+  }
 
   return (
-    // <div className="h-[32rem] w-full">
-    //   <DataGrid
-    //     rows={dataItems}
-    //     columns={columns}
-    //     pageSize={5}
-    //     // checkboxSelection
-    //     style={{
-    //       backgroundColor: '#fff',
-    //       borderRadius: '8px'
-    //     }}
-    //   />
-    // </div>
     <CardContainer disablePd='1' disableHover='1'>
       <table className="w-full">
         <thead className="border-b-[1px]">
@@ -71,16 +50,27 @@ export default function ArticlesList({ route }) {
           {dataItems ? dataItems.map((item, index) => (
             <CustomTooltip data={item} key={index}>
 
-              <tr key={index} className="border-b text-sm hover:bg-blue-50">
+              <tr key={index} className="border-b text-sm hover:bg-blue-50 cursor-pointer" onClick={() => handleRowClick(item)}>
                 <td className="truncate max-w-[20rem] px-6 py-3">{item.Title}</td>
                 <td className="truncate max-w-[20rem] px-6 py-3">{Object.values(item.Authors).join(', ')}</td>
                 <td className="truncate max-w-[20rem] px-6 py-3">{item.Affiliations ? Object.values(item.Affiliations).join('; ') : ''}</td>
               </tr>
 
+              {/* {showDialog ? <Dialog></Dialog> : null} */}
+
             </CustomTooltip>
           )) : null}
 
         </tbody>
+
+        <Dialog
+          open={showDialog}
+          onClose={() => setShowDialog(false)}
+          scroll="paper"
+          maxWidth="lg"
+        >
+          <DialogData data={dataItem} setDialog={setShowDialog}></DialogData>
+        </Dialog>
       </table>
     </CardContainer>
   );
