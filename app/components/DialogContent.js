@@ -28,7 +28,7 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
             .join('\n')}
         </DialogContentText>
       </DialogContent>
-      <div className='h-10 w-10 mt-2 mr-2 bg-slate-100 absolute top-0 right-0 rounded-full p-2 flex align-middle justify-center' onClick={() => handleCloseEvent()}>
+      <div className='h-10 w-10 mt-2 mr-2 bg-slate-100 absolute top-0 right-0 rounded-full p-2 flex align-middle justify-center cursor-pointer border-[1px] hover:bg-blue-50 hover:border-blue-500' onClick={() => handleCloseEvent()}>
         <Image src={icoClose} alt='close'></Image>
       </div>
     </>
