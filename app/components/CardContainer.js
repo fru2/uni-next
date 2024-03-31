@@ -1,6 +1,3 @@
-import React from 'react'
-
-
 export default function CardContainer({title, children, disablePd, disableHover, style}) {
   return (
     <div className={`bg-white border-[1px] rounded-lg w-full 

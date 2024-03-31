@@ -14,7 +14,8 @@ module.exports = {
       },
       colors: {
         'deep-blue': '#313c71',
-        'deep-blue-hover': '#1E2546'
+        'deep-blue-hover': '#1E2546',
+        'bluish-gray' : '#e5e7eb'
       }
     },
   },

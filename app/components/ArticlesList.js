@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import CustomTooltip from "./CustomTooltip";
 import CardContainer from "./CardContainer";
-import { Dialog} from "@mui/material";
+import { Dialog } from "@mui/material";
 import DialogData from "./DialogContent";
 import FilterButton from "./dashboard/FilterButton";
 import Search from "./dashboard/Search";
@@ -37,50 +37,53 @@ export default function ArticlesList({ route }) {
   }
 
   return (
-    <CardContainer disablePd='1' disableHover='1'>
-      <div className="flex">
-        <FilterButton></FilterButton> 
-        <FilterButton></FilterButton> 
-        <FilterButton></FilterButton> 
-        <FilterButton></FilterButton> 
+    <>
+      <div className="flex gap-2 mb-4">
+        <FilterButton filterType='Authors'></FilterButton>
+        <FilterButton filterType='Affiliations'></FilterButton>
+        <FilterButton filterType='Year'></FilterButton>
+        <FilterButton filterType='Funding'></FilterButton>
+        <FilterButton filterType='Sort'></FilterButton>
         <Search></Search>
       </div>
-      <table className="w-full">
-        <thead className="border-b-[1px]">
-          <tr>
-            <th className="w-1/3 text-start px-6 py-3">Title</th>
-            <th className="w-1/3 text-start px-6 py-3">Authors</th>
-            <th className="w-1/3 text-start px-6 py-3">Affiliations</th>
-          </tr>
-        </thead>
+      <CardContainer disablePd='1' disableHover='1'>
+        <table className="w-full">
+          <thead className="border-b-[1px]">
+            <tr>
+              <th className="w-1/3 text-start px-6 py-3">Title</th>
+              <th className="w-1/3 text-start px-6 py-3">Authors</th>
+              <th className="w-1/3 text-start px-6 py-3">Affiliations</th>
+            </tr>
+          </thead>
 
-        <tbody>
+          <tbody>
 
-          {dataItems ? dataItems.map((item, index) => (
-            <CustomTooltip data={item} key={index}>
+            {dataItems ? dataItems.map((item, index) => (
+              <CustomTooltip data={item} key={index}>
 
-              <tr key={index} className="border-b text-sm hover:bg-blue-50 cursor-pointer" onClick={() => handleRowClick(item)}>
-                <td className="truncate max-w-[20rem] px-6 py-3">{item.Title}</td>
-                <td className="truncate max-w-[20rem] px-6 py-3">{Object.values(item.Authors).join(', ')}</td>
-                <td className="truncate max-w-[20rem] px-6 py-3">{item.Affiliations ? Object.values(item.Affiliations).join('; ') : ''}</td>
-              </tr>
+                <tr key={index} className="border-b text-sm hover:bg-blue-50 cursor-pointer" onClick={() => handleRowClick(item)}>
+                  <td className="truncate max-w-[20rem] px-6 py-3">{item.Title}</td>
+                  <td className="truncate max-w-[20rem] px-6 py-3">{Object.values(item.Authors).join(', ')}</td>
+                  <td className="truncate max-w-[20rem] px-6 py-3">{item.Affiliations ? Object.values(item.Affiliations).join('; ') : ''}</td>
+                </tr>
 
-              {/* {showDialog ? <Dialog></Dialog> : null} */}
+                {/* {showDialog ? <Dialog></Dialog> : null} */}
 
-            </CustomTooltip>
-          )) : null}
+              </CustomTooltip>
+            )) : null}
 
-        </tbody>
+          </tbody>
 
-        <Dialog
-          open={showDialog}
-          onClose={() => setShowDialog(false)}
-          scroll="paper"
-          maxWidth="lg"
-        >
-          <DialogData data={dataItem} setDialog={setShowDialog}></DialogData>
-        </Dialog>
-      </table>
-    </CardContainer>
+          <Dialog
+            open={showDialog}
+            onClose={() => setShowDialog(false)}
+            scroll="paper"
+            maxWidth="lg"
+          >
+            <DialogData data={dataItem} setDialog={setShowDialog}></DialogData>
+          </Dialog>
+        </table>
+      </CardContainer>
+    </>
   );
 }
