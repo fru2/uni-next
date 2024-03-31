@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 // FilterButton.js
 
+=======
+>>>>>>> c649031fe1c3065ea8a6cec240a11f249fada49c
 import Image from "next/image";
 import CardContainer from "../CardContainer";
 import { useState } from "react";
