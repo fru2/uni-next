@@ -4,6 +4,8 @@ import CustomTooltip from "./CustomTooltip";
 import CardContainer from "./CardContainer";
 import { Dialog} from "@mui/material";
 import DialogData from "./DialogContent";
+import FilterButton from "./dashboard/FilterButton";
+import Search from "./dashboard/Search";
 
 export default function ArticlesList({ route }) {
   const [dataItems, setDataItems] = useState([]);
@@ -36,6 +38,13 @@ export default function ArticlesList({ route }) {
 
   return (
     <CardContainer disablePd='1' disableHover='1'>
+      <div className="flex">
+        <FilterButton></FilterButton> 
+        <FilterButton></FilterButton> 
+        <FilterButton></FilterButton> 
+        <FilterButton></FilterButton> 
+        <Search></Search>
+      </div>
       <table className="w-full">
         <thead className="border-b-[1px]">
           <tr>
