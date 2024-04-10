@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import CustomTooltip from "./CustomTooltip";
 import CardContainer from "./CardContainer";
-import { Dialog } from "@mui/material";
+import { Pagination, Dialog } from "@mui/material";
 import DialogData from "./DialogContent";
 import FilterButton from "./dashboard/FilterButton";
 import Search from "./dashboard/Search";
@@ -18,6 +18,9 @@ export default function ArticlesList({ route }) {
   const cardRef = useRef(null);
   const [showDialog, setShowDialog] = useState(false);
   const [dataItem, setDataItem] = useState(null);
+
+  const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +45,20 @@ export default function ArticlesList({ route }) {
     setShowDialog(true);
   }
 
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  // const handleItemsPerPageChange = (event) => {
+  //   setItemsPerPage(parseInt(event.target.value, 10));
+  //   setPage(1); // Reset to first page when changing items per page
+  // };
+
+  const displayedItems = dataItems.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
+
   return (
     <>
       <div className="flex gap-2 mb-4">
@@ -64,7 +81,7 @@ export default function ArticlesList({ route }) {
 
           <tbody>
 
-            {dataItems ? dataItems.map((item, index) => (
+            {displayedItems ? displayedItems.map((item, index) => (
               <CustomTooltip data={item} key={index}>
 
                 <tr key={index} className="border-b text-sm hover:bg-blue-50 cursor-pointer" onClick={() => handleRowClick(item)}>
@@ -89,6 +106,19 @@ export default function ArticlesList({ route }) {
             <DialogData data={dataItem} setDialog={setShowDialog}></DialogData>
           </Dialog>
         </table>
+
+        <div className="flex justify-center mt-6 mb-4">
+          <Pagination
+            count={Math.ceil(dataItems.length / itemsPerPage)}
+            page={page}
+            onChange={handlePageChange}
+            showFirstButton
+            showLastButton
+            variant="outlined"
+            shape="rounded"
+          />
+        </div>
+
       </CardContainer>
     </>
   );
