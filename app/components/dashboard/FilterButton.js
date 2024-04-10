@@ -9,7 +9,7 @@ import { Autocomplete, IconButton, Popover, TextField, Button } from "@mui/mater
 
 const filterOptions = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
 
-export default function FilterButton({filterType}) {
+export default function FilterButton({ filterType, icon }) {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -45,9 +45,9 @@ export default function FilterButton({filterType}) {
   return (
     <>
       <div onClick={handlePopoverOpen} className={`bg-white border-[1px] rounded-lg w-fit px-4 py-4 hover:bg-blue-50 hover:border-blue-500 cursor-pointer
-            ${selectedFilters.length != 0 ? 'bg-blue-50 border-blue-500' : ''}`}>
+            ${selectedFilters.length != 0 ? ' bg-light-blue border-blue-500' : ''}`}>
         <span className="">{filterType}</span>
-        <Image className={`inline h-5 w-5 ml-2`} src={selectedFilters.length != 0 ? iconCross : iconExpand} alt=""></Image>
+        <Image className={`inline h-5 w-5 ml-2 hover:opacity-60 ${selectedFilters.length != 0 ? 'icon-blue' : ''}`} src={selectedFilters.length != 0 ? iconCross : iconExpand} alt="" onClick={clearFilters}></Image>
       </div>
 
 
@@ -65,22 +65,25 @@ export default function FilterButton({filterType}) {
           horizontal: 'left',
         }}
       >
-        <div className="w-48"></div>
-        <Autocomplete
-          multiple
-          id="tags-standard"
-          sx={{ p: 2 }}
-          options={filterOptions}
-          defaultValue={selectedFilters}
-          onChange={(event, value) => setSelectedFilters(value)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              placeholder={`Select ${filterType.toLowerCase()}`}
-            />
-          )}
-        />
+        <div className="min-w-48 flex gap-4">
+          {/* <Image className="h-5 w-5" src={icon} alt=''></Image> */}
+          <Autocomplete
+            className="flex-1"
+            multiple
+            id="tags-standard"
+            sx={{ p: 2 }}
+            options={filterOptions}
+            defaultValue={selectedFilters}
+            onChange={(event, value) => setSelectedFilters(value)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                placeholder={`Select ${filterType.toLowerCase()}`}
+              />
+            )}
+          />
+        </div>
       </Popover>
     </>
   )

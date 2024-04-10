@@ -6,6 +6,12 @@ import { Dialog } from "@mui/material";
 import DialogData from "./DialogContent";
 import FilterButton from "./dashboard/FilterButton";
 import Search from "./dashboard/Search";
+import icoUser from "@/app/icons/person.svg";
+import icoFund from "@/app/icons/attach_money.svg";
+import icoEdu from "@/app/icons/history_edu.svg";
+import icoSort from "@/app/icons/sort.svg";
+import icoCal from "@/app/icons/calendar_today.svg";
+
 
 export default function ArticlesList({ route }) {
   const [dataItems, setDataItems] = useState([]);
@@ -39,11 +45,11 @@ export default function ArticlesList({ route }) {
   return (
     <>
       <div className="flex gap-2 mb-4">
-        <FilterButton filterType='Authors'></FilterButton>
-        <FilterButton filterType='Affiliations'></FilterButton>
-        <FilterButton filterType='Year'></FilterButton>
-        <FilterButton filterType='Funding'></FilterButton>
-        <FilterButton filterType='Sort'></FilterButton>
+        <FilterButton filterType='Authors' icon={icoUser}></FilterButton>
+        <FilterButton filterType='Affiliations' icon={icoEdu}></FilterButton>
+        <FilterButton filterType='Year' icon={icoCal}></FilterButton>
+        <FilterButton filterType='Funding' icon={icoFund}></FilterButton>
+        <FilterButton filterType='Sort' icon={icoSort}></FilterButton>
         <Search></Search>
       </div>
       <CardContainer disablePd='1' disableHover='1'>
