@@ -1,22 +1,28 @@
 import mongoose from 'mongoose';
 
+const Authors = new mongoose.Schema({
+  a1: String
+});
+const ScopusId = new mongoose.Schema({
+  id: String,
+});
+const Affiliations = new mongoose.Schema({
+  af: String,
+});
+const UUID = new mongoose.Schema({
+  id: String,
+});
+
+
 const ResearchPaperSchema = new mongoose.Schema({
-  Authors: {
-    a1: { type: String, required: true },
-    a2: { type: String },
-    a3: { type: String },
-    a4: { type: String },
-    a5: { type: String },
-    a6: { type: String },
-  },
-  "Author(s) ID": {
-    id1: { type: String },
-    id2: { type: String },
-    id3: { type: String },
-    id4: { type: String },
-    id5: { type: String },
-    id6: { type: String },
-  },
+  Authors: [{
+    type: Authors,
+    required: true
+  }],
+  "Scopus ID": [{
+    type: ScopusId
+
+  }],
   Title: { type: String, required: true },
   Year: { type: Number },
   "Source title": { type: String },
@@ -25,13 +31,10 @@ const ResearchPaperSchema = new mongoose.Schema({
   "Page start": { type: String },
   "Page end": { type: String },
   DOI: { type: String },
-  Affiliations: {
-    af1: { type: String },
-    af2: { type: String },
-  },
+  Affiliations: [{
+    type: Affiliations,
+  }],
   "Funding Details": { type: String },
-  "Funding Text 1": { type: String },
-  "Funding Text 2": { type: String },
   References: { type: String },
   "Correspondence Address": { type: String },
   Editors: { type: String },
@@ -49,6 +52,9 @@ const ResearchPaperSchema = new mongoose.Schema({
   "Open Access": { type: String },
   Source: { type: String },
   EID: { type: String },
+  UUID: [{
+    type: UUID,
+  }]
 });
 
 const ResearchPaper = mongoose.models.ResearchPaper || mongoose.model('ResearchPaper', ResearchPaperSchema);
