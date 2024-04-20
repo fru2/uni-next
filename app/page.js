@@ -6,10 +6,12 @@ import { LineChartComp, BarChartComp } from './components/Charts';
 import iconStats from '@/app/icons/equalizer.svg';
 import StatsCard from "./components/StatsCard";
 import ArticlesList from "./components/ArticlesList";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 export default function Home() {
   return (
-    <>
+    <Provider store={store}>
       <Nav />
       <main className="px-4 sm:px-6 lg:px-8 bg-gray-50 mt-[4.5rem]">
 
@@ -30,6 +32,6 @@ export default function Home() {
         <ArticlesList route='researchpaper'></ArticlesList>
         <div className="h-6"></div>
       </main>
-    </>
+    </Provider>
   );
 }
