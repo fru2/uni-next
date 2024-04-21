@@ -14,10 +14,15 @@ const HtmlTooltip = styled(({ className, ...props }) => (
     maxWidth: 500,
     fontSize: 16,
     border: '1px solid #dadde9',
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
   },
 }));
 
 export default function CustomTooltip({ data, children }) {
+
+  const containsPesUniversity = (affiliation) =>
+    affiliation.toLowerCase().includes("pes university");
+
   return (
     <HtmlTooltip title={
       <>
@@ -26,27 +31,30 @@ export default function CustomTooltip({ data, children }) {
         <div className="w-full h-[0.5px] bg-slate-600"></div>
 
         <table>
-          <tr>
+          <tr className="h-2"></tr>
+          <tr className="">
             <td className="align-top mr-4 block"><span>Authors</span></td>
             <td>
               <div className="flex flex-wrap gap-2">
                 {Object.values(data.Authors).map((item, index) => (
-                  <span key={index} className="text-xs border-[1px] rounded-md w-max">{item}</span>
+                  <span key={index} className="text-xs border-[1px] rounded-md px-2 py-1">{item}</span>
                 ))}
               </div>
             </td>
           </tr>
           <tr className="min-h-4"></tr>
+          <tr className="h-3"></tr>
           <tr>
             <td className="align-top mr-4 block"><span>Affiliations</span></td>
             <td>
               <div className="flex flex-wrap gap-2">
                 {Object.values(data.Affiliations).map((item, index) => (
-                  <span key={index} className="text-xs border-[1px] rounded-md">{truncateComma(item)}</span>
+                  <span key={index} className={`text-xs border-[1px] rounded-md p-2 ${containsPesUniversity(item) ? 'bg-bluish-gray' : ''}`}>{truncateComma(item)}</span>
                 ))}
               </div>
             </td>
           </tr>
+          <tr className="h-2"></tr>
         </table>
 
         {/* <div className="flex border-t">

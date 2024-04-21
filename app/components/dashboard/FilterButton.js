@@ -1,18 +1,20 @@
-// FilterButton.js
 
 import Image from "next/image";
 import CardContainer from "../CardContainer";
 import { useState } from "react";
-import iconExpand from '@/app/icons/bxs-x-circle.svg';
-import iconCross from '@/app/icons/expand_more.svg';
-import { Autocomplete, IconButton, Popover, TextField } from "@mui/material";
+import iconExpand from '@/app/icons/expand_more.svg';
+import iconCross from '@/app/icons/bxs-x-circle.svg';
+import { Autocomplete, IconButton, Popover, TextField, Button } from "@mui/material";
+
 
 const filterOptions = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
 
-export default function FilterButton() {
+export default function FilterButton({ filterType, icon }) {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
+
+  const minWidth = filterType.length * 8;
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,15 +44,18 @@ export default function FilterButton() {
 
   return (
     <>
-      <CardContainer style={'flex w-fit'}>
-        <span className="" onClick={handlePopoverOpen}>Filter</span>
-        <Image className={`inline`} src={open ? iconCross : iconExpand} alt=""></Image>
-      </CardContainer>
-      
+      <div onClick={handlePopoverOpen} className={`bg-white border-[1px] rounded-lg w-fit px-4 py-4 hover:bg-blue-50 hover:border-blue-500 cursor-pointer
+            ${selectedFilters.length != 0 ? ' bg-light-blue border-blue-500' : ''}`}>
+        <span className="">{filterType}</span>
+        <Image className={`inline h-5 w-5 ml-2 hover:opacity-60 ${selectedFilters.length != 0 ? 'icon-blue' : ''}`} src={selectedFilters.length != 0 ? iconCross : iconExpand} alt="" onClick={clearFilters}></Image>
+      </div>
+
+
       <Popover
         open={open}
         anchorEl={anchorEl}
         onClose={handlePopoverClose}
+
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
@@ -60,26 +65,25 @@ export default function FilterButton() {
           horizontal: 'left',
         }}
       >
-        <Autocomplete
-          multiple
-          id="tags-standard"
-          options={filterOptions}
-          defaultValue={[]}
-          onChange={(event, value) => setSelectedFilters(value)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="Multiple values"
-              placeholder="Favorites"
-            />
-          )}
-        />
-        {selectedFilters.length > 0 && (
-          <IconButton onClick={clearFilters}>
-            <Image src={iconCross} alt=""></Image>
-          </IconButton>
-        )}
+        <div className="min-w-48 flex gap-4">
+          {/* <Image className="h-5 w-5" src={icon} alt=''></Image> */}
+          <Autocomplete
+            className="flex-1"
+            multiple
+            id="tags-standard"
+            sx={{ p: 2 }}
+            options={filterOptions}
+            defaultValue={selectedFilters}
+            onChange={(event, value) => setSelectedFilters(value)}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                placeholder={`Select ${filterType.toLowerCase()}`}
+              />
+            )}
+          />
+        </div>
       </Popover>
     </>
   )
