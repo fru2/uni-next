@@ -86,8 +86,8 @@ export default function ArticlesList({ route }) {
 
                 <tr key={index} className="border-b text-sm hover:bg-blue-50 cursor-pointer" onClick={() => handleRowClick(item)}>
                   <td className="truncate max-w-[20rem] px-6 py-3">{item.Title}</td>
-                  <td className="truncate max-w-[20rem] px-6 py-3">{Object.values(item.Authors).join(', ')}</td>
-                  <td className="truncate max-w-[20rem] px-6 py-3">{item.Affiliations ? Object.values(item.Affiliations).join('; ') : ''}</td>
+                  <td className="truncate max-w-[20rem] px-6 py-3">{Object.values(item.Authors[0]).join(', ')}</td>
+                  <td className="truncate max-w-[20rem] px-6 py-3">{item.Affiliations[0] ? Object.values(item.Affiliations[0]).join('; ') : ''}</td>
                 </tr>
 
                 {/* {showDialog ? <Dialog></Dialog> : null} */}

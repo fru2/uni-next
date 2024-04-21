@@ -1,14 +1,27 @@
 import mongoose from 'mongoose';
 
-const Authors = new mongoose.Schema({
-  a1: String
-});
-const ScopusId = new mongoose.Schema({
-  id: String,
-});
-const Affiliations = new mongoose.Schema({
-  af: String,
-});
+const Authors = new mongoose.Schema(
+  {
+    a1: String
+  },
+  {
+    _id: false, // Exclude the _id field from the schema
+  });
+const ScopusId = new mongoose.Schema(
+  {
+    id: String,
+  },
+  {
+    _id: false, // Exclude the _id field from the schema
+  });
+const Affiliations = new mongoose.Schema(
+  {
+    af: String,
+  },
+  {
+    _id: false, // Exclude the _id field from the schema
+  }
+);
 const UUID = new mongoose.Schema({
   id: String,
 });
@@ -21,7 +34,6 @@ const ResearchPaperSchema = new mongoose.Schema({
   }],
   "Scopus ID": [{
     type: ScopusId
-
   }],
   Title: { type: String, required: true },
   Year: { type: Number },
