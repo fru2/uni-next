@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 dbConnect();
 export const GET = async (req) => {
   try {
-    const result = await DataTobePush.find({ isValidatedByDean: true });
+    const result = await DataTobePush.find({ isValidatedByDean: null  });
     return new NextResponse(JSON.stringify(result), { status: 200 });
   } catch (error) {
     return new NextResponse("Error in fetching data: " + error, {
