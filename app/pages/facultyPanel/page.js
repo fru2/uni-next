@@ -21,10 +21,10 @@ export default function page() {
                 <SubmittedArticleCard title='GG' status={true} ></SubmittedArticleCard>
               </tr>
               <tr className='border-b flex py-4'>
-                <SubmittedArticleCard title='GG' status={true} ></SubmittedArticleCard>
+                <SubmittedArticleCard title='GG' status={false} ></SubmittedArticleCard>
               </tr>
               <tr className='border-b flex py-4'>
-                <SubmittedArticleCard title='GG' status={true} ></SubmittedArticleCard>
+                <SubmittedArticleCard title='GG' status={null} ></SubmittedArticleCard>
               </tr>
             </tbody>
           </table>
@@ -32,9 +32,7 @@ export default function page() {
 
         <h3 className="text-2xl pt-6 mb-4">Add articles</h3>
         <CardContainer disableHover='1'>
-          <form>
-            <AddArticleForm></AddArticleForm>
-          </form>
+          <AddArticleForm></AddArticleForm>
         </CardContainer>
       </main>
     </>
