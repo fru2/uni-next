@@ -38,3 +38,13 @@ body{
 .icon-blue{
   filter: invert(49%) sepia(71%) saturate(3995%) hue-rotate(202deg) brightness(100%) contrast(93%);
 }
+
+
+.status-table tr:last-child{
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.status-table tr:first-child{
+  padding-top: 0;
+}
