@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { truncateComma } from '../utils/helperFunction';
 import DialogTableData from './DialogTableData';
 
-export default function DialogData({ data, setDialog }) {
+export default function DialogData({ data, setDialog, disableAuthor }) {
 
   const handleCloseEvent = () => {
     setDialog(false);
@@ -22,25 +22,29 @@ export default function DialogData({ data, setDialog }) {
             <td className="align-top mr-4 block"><span>Authors</span></td>
             <td>
               <div className="flex flex-wrap gap-2">
-                {Object.values(data.Authors[0]).map((item, index) => (
-                  <span key={index} className="text-xs border-[1px] rounded-md px-2 py-1">{item}</span>
-                ))}
+                {disableAuthor ? null :
+                  Object.values(data.Authors[0]).map((item, index) => (
+                    <span key={index} className="text-xs border-[1px] rounded-md px-2 py-1">{item}</span>
+                  ))
+                }
               </div>
             </td>
           </tr>
 
           <tr className="py-5 h-4">
-                <td colSpan={2} className='w-full'>
-                    <div className='w-full bg-slate-200 h-[0.5px]'></div>
-                </td>
-            </tr>
+            <td colSpan={2} className='w-full'>
+              <div className='w-full bg-slate-200 h-[0.5px]'></div>
+            </td>
+          </tr>
           <tr>
             <td className="align-top mr-4 block"><span>Affiliations</span></td>
             <td>
               <div className="flex flex-wrap gap-2">
-                {Object.values(data.Affiliations[0]).map((item, index) => (
-                  <span key={index} className="text-xs border-[1px] rounded-md px-2 py-1">{truncateComma(item)}</span>
-                ))}
+                {disableAuthor ? null :
+                  Object.values(data.Affiliations[0]).map((item, index) => (
+                    <span key={index} className="text-xs border-[1px] rounded-md px-2 py-1">{truncateComma(item)}</span>
+                  ))
+                }
               </div>
             </td>
           </tr>

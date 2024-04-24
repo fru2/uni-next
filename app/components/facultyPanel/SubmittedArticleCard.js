@@ -6,7 +6,7 @@ import icoRejected from '@/app/icons/warning_amber.svg';
 import Chip from '@mui/material/Chip';
 import { Button } from '@mui/material';
 
-export default function SubmittedArticleCard({title, status, remarks}) {
+export default function SubmittedArticleCard({ title, status, remarks }) {
 
     // const [status, setStatus] = useState(null);
 
@@ -23,9 +23,9 @@ export default function SubmittedArticleCard({title, status, remarks}) {
     }
 
     const getStatusColor = () => {
-        if (checkStatus() === 'Pending') return 'bg-yellow-100 text-yellow-800';
-        else if (checkStatus() === 'Approved') return 'bg-green-100 text-green-800';
-        else return 'bg-red-100 text-red-800';
+        if (status === null) return { backgroundColor: '#fff2c4', color: '#000000', padding: '0 0.25rem' }; // Yellow for pending
+        else if (status === true) return { backgroundColor: '#c4ffc4', color: '#000', padding: '0 0.25rem' }; // Green for approved
+        else return { backgroundColor: '#ffc4c4', color: '#000', padding: '0 0.25rem' }; // Red for rejected
     }
 
     return (
@@ -33,14 +33,18 @@ export default function SubmittedArticleCard({title, status, remarks}) {
             <div>
                 <span>{title}</span>
             </div>
-            {status === false ? <Button variant='text' size='small' className='ml-auto'>Edit</Button> : null}
-            
-            <Chip 
-                icon={<Image className='h-4 w-4' src={pickStatusIcon()} alt=''></Image>} 
-                label={checkStatus()} 
-                size='small'
-                className={`px-2 ${getStatusColor()} rounded-full`}
-            ></Chip>
+
+            <div>
+                {status === false ? <Button variant='text' size='small'>Edit</Button> : null}
+
+                <Chip
+                    icon={<Image className='h-4 w-4' src={pickStatusIcon()} alt=''></Image>}
+                    label={checkStatus()}
+                    size='small'
+                    className={`px-2 rounded-full`}
+                    style={getStatusColor()}
+                ></Chip>
+            </div>
         </td>
     )
 }
