@@ -1,39 +1,23 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const Authors = new mongoose.Schema(
-  {
-    a1: String
-  },
-  {
-    _id: false, // Exclude the _id field from the schema
-  });
-const ScopusId = new mongoose.Schema(
-  {
-    id: String,
-  },
-  {
-    _id: false, // Exclude the _id field from the schema
-  });
-const Affiliations = new mongoose.Schema(
-  {
-    af: String,
-  },
-  {
-    _id: false, // Exclude the _id field from the schema
-  }
-);
-const UUID = new mongoose.Schema({
+const Authors = new mongoose.Schema({
+  a1: String,
+});
+const Affiliations = new mongoose.Schema({
+  af: String,
+});
+const ScopusId = new mongoose.Schema({
   id: String,
 });
 
-
-const ResearchPaperSchema = new mongoose.Schema({
+const data = new mongoose.Schema({
   Authors: [{
     type: Authors,
     required: true
   }],
   "Scopus ID": [{
     type: ScopusId
+
   }],
   Title: { type: String, required: true },
   Year: { type: Number },
@@ -64,11 +48,29 @@ const ResearchPaperSchema = new mongoose.Schema({
   "Open Access": { type: String },
   Source: { type: String },
   EID: { type: String },
-  UUID: [{
-    type: UUID,
-  }]
 });
 
-const ResearchPaper = mongoose.models.ResearchPaper || mongoose.model('ResearchPaper', ResearchPaperSchema);
+const dataForValidate = new mongoose.Schema({
+  data: {
+    type: data,
+    required: true,
+  },
+  isValidatedByDean: {
+    type: Boolean,
+    default: null,
+  },
+  isValidatedByVC: {
+    type: Boolean,
+    default: null,
+  },
+  isValidatedByLibrarian: {
+    type: Boolean,
+    default: null,
+  },
+});
 
-export default ResearchPaper;
+const DataTobePush =
+  mongoose.models.DataForValidate ||
+  mongoose.model("DataForValidate", dataForValidate);
+
+export default DataTobePush;

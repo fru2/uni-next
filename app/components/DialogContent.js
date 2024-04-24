@@ -22,7 +22,7 @@ export default function DialogData({ data, setDialog }) {
             <td className="align-top mr-4 block"><span>Authors</span></td>
             <td>
               <div className="flex flex-wrap gap-2">
-                {Object.values(data.Authors).map((item, index) => (
+                {Object.values(data.Authors[0]).map((item, index) => (
                   <span key={index} className="text-xs border-[1px] rounded-md px-2 py-1">{item}</span>
                 ))}
               </div>
@@ -38,7 +38,7 @@ export default function DialogData({ data, setDialog }) {
             <td className="align-top mr-4 block"><span>Affiliations</span></td>
             <td>
               <div className="flex flex-wrap gap-2">
-                {Object.values(data.Affiliations).map((item, index) => (
+                {Object.values(data.Affiliations[0]).map((item, index) => (
                   <span key={index} className="text-xs border-[1px] rounded-md px-2 py-1">{truncateComma(item)}</span>
                 ))}
               </div>
