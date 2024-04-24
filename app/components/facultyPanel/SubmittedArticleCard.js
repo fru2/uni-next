@@ -4,6 +4,7 @@ import icoDone from '@/app/icons/download_done.svg';
 import icoPending from '@/app/icons/pending_actions.svg';
 import icoRejected from '@/app/icons/warning_amber.svg';
 import Chip from '@mui/material/Chip';
+import { Button } from '@mui/material';
 
 export default function SubmittedArticleCard({title, status, remarks}) {
 
@@ -32,6 +33,8 @@ export default function SubmittedArticleCard({title, status, remarks}) {
             <div>
                 <span>{title}</span>
             </div>
+            {status === false ? <Button variant='text' size='small' className='ml-auto'>Edit</Button> : null}
+            
             <Chip 
                 icon={<Image className='h-4 w-4' src={pickStatusIcon()} alt=''></Image>} 
                 label={checkStatus()} 

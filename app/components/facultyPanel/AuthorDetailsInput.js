@@ -63,8 +63,8 @@ export default function AuthorDetailsInput({ label }) {
           </div>
         ))}
 
-        <Button onClick={handleAddAuthor}>
-          <span className='mr-2'>Add another author</span> <Image src={icoAdd} alt='' width={20} height={20} className='icon-mui-blue'/>
+        <Button onClick={handleAddAuthor} style={ {textTransform: 'none'} }>
+          <span className='mr-2'>Add another author</span>
         </Button>
 
       </td>
