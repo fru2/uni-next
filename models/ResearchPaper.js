@@ -1,73 +1,129 @@
 import mongoose from 'mongoose';
 
-const Authors = new mongoose.Schema(
-  {
-    a1: String
-  },
-  {
-    _id: false, // Exclude the _id field from the schema
-  });
-const ScopusId = new mongoose.Schema(
-  {
-    id: String,
-  },
-  {
-    _id: false, // Exclude the _id field from the schema
-  });
-const Affiliations = new mongoose.Schema(
-  {
-    af: String,
-  },
-  {
-    _id: false, // Exclude the _id field from the schema
-  }
-);
-const UUID = new mongoose.Schema({
-  id: String,
-});
 
+const AuthorsSchema = new mongoose.Schema({
+  a1: String,
+  a2: String,
+  a3: String,
+  a4: String,
+  a5: String,
+  a6: String,
+  a7: String,
+  a8: String,
+  a9: String,
+  a10: String,
+  a11: String,
+  a12: String,
+  a13: String,
+  a14: String,
+  a15: String,
+  a16: String,
+  a17: String,
+  a18: String,
+  a19: String,
+  a20: String
+}, { _id: false });
+
+const ScopusIdSchema = new mongoose.Schema({
+  id1: String,
+  id2: String,
+  id3: String,
+  id4: String,
+  id5: String,
+  id6: String,
+  id7: String,
+  id8: String,
+  id9: String,
+  id10: String,
+  id11: String,
+  id12: String,
+  id13: String,
+  id14: String,
+  id15: String,
+  id16: String,
+  id17: String,
+  id18: String,
+  id19: String,
+  id20: String
+}, { _id: false });
+
+const AffiliationsSchema = new mongoose.Schema({
+  af1: String,
+  af2: String,
+  af3: String,
+  af4: String,
+  af5: String,
+  af6: String,
+  af7: String,
+  af8: String,
+  af9: String,
+  af10: String,
+  af11: String,
+  af12: String,
+  af13: String,
+  af14: String,
+  af15: String,
+}, { _id: false });
+
+const UUIDSchema = new mongoose.Schema({
+  id1: String,
+  id2: String,
+  id3: String,
+  id4: String,
+  id5: String,
+  id6: String,
+  id7: String,
+  id8: String,
+  id9: String,
+  id10: String,
+  id11: String,
+  id12: String,
+  id13: String,
+  id14: String,
+  id15: String,
+  id16: String,
+  id17: String,
+  id18: String,
+  id19: String,
+  id20: String
+}, { _id: false });
 
 const ResearchPaperSchema = new mongoose.Schema({
-  Authors: [{
-    type: Authors,
-    required: true
-  }],
-  "Scopus ID": [{
-    type: ScopusId
-  }],
-  Title: { type: String, required: true },
-  Year: { type: Number },
-  "Source title": { type: String },
-  Volume: { type: String },
-  Issue: { type: String },
-  "Page start": { type: String },
-  "Page end": { type: String },
-  DOI: { type: String },
-  Affiliations: [{
-    type: Affiliations,
-  }],
-  "Funding Details": { type: String },
-  References: { type: String },
-  "Correspondence Address": { type: String },
-  Editors: { type: String },
-  Sponsors: { type: String },
-  Publisher: { type: String },
-  "Conference name": { type: String },
-  "Conference date": { type: String },
-  "Conference location": { type: String },
-  CODEN: { type: String },
-  "PubMed ID": { type: String },
-  "Language of Original Document": { type: String },
-  "Abbreviated Source Title": { type: String },
-  "Document Type": { type: String },
-  "Publication Stage": { type: String },
-  "Open Access": { type: String },
-  Source: { type: String },
-  EID: { type: String },
-  UUID: [{
-    type: UUID,
-  }]
+  Authors: AuthorsSchema,
+  "Scopus ID": ScopusIdSchema,
+  Title: String,
+  Year: Number,
+  "Source title": String,
+  Volume: String,
+  Issue: String,
+  "Page start": String,
+  "Page end": String,
+  DOI: String,
+  Affiliations: AffiliationsSchema,
+  "Funding Details": String,
+  References: String,
+  "Correspondence Address": String,
+  Editors: String,
+  Sponsors: String,
+  Publisher: String,
+  "Conference name": String,
+  "Conference date": String,
+  "Conference location": String,
+  CODEN: String,
+  "PubMed ID": String,
+  "Language of Original Document": String,
+  "Abbreviated Source Title": String,
+  "Document Type": String,
+  "Publication Stage": String,
+  "Open Access": String,
+  Source: String,
+  EID: String,
+  "Funding Text": String,
+  UUID: UUIDSchema
 });
+
+
+
 
 const ResearchPaper = mongoose.models.ResearchPaper || mongoose.model('ResearchPaper', ResearchPaperSchema);
 
