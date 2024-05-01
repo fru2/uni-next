@@ -1,17 +1,23 @@
 import { Autocomplete, TextField } from '@mui/material';
+import { useEffect, useState } from 'react';
 
-export default function Search() {
+export default function Search({ getSearchQuery }) {
+
+    const [search, setSearch] = useState('');
+
+    console.log(search);
+
+    useEffect(() => {
+        getSearchQuery(search);
+    }, [search])
+
     return (
-        <Autocomplete
+        <TextField
+            placeholder='Search'
             className="flex-1 flex-grow w-max bg-white border-red"
-            id="free-solo-demo"
-            freeSolo
-            // options={top100Films.map((option) => option.title)}
-            options={['gg', 'abc']}
-            renderInput={(params) => <TextField placeholder='Search' {...params}/>}
-        />
+            onChange={(e) => setSearch(e.target.value)} />
     )
 }
 
-            
+
 

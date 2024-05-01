@@ -14,6 +14,7 @@ export default function ArticlesList({ route }) {
   const [selectedAuthor, setSelectedAuthor] = useState([]);
   const [selectedAffiliation, setSelectedAffiliation] = useState([]);
   const [selectedYear, setSelectedYear] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const [dataItems, setDataItems] = useState([]);
   const cardRef = useRef(null);
@@ -29,9 +30,10 @@ export default function ArticlesList({ route }) {
         const authorsUrl = selectedAuthor.map(author => `authors=${encodeURIComponent(author)}`).join('&');
         const affiliationsUrl = selectedAffiliation.map(affiliation => `affiliations=${encodeURIComponent(affiliation)}`).join('&');
         const yearsUrl = selectedYear.map(year => `years=${year}`).join('&');
+        const searchUrl = `search=${encodeURIComponent(searchQuery)}`;
         
 
-        const response = await fetch(`/api/${route}?${authorsUrl}&${affiliationsUrl}&${yearsUrl}`);
+        const response = await fetch(`/api/${route}?${authorsUrl}&${affiliationsUrl}&${yearsUrl}&${searchUrl}`);
 
         if (response.ok) {
           const data = await response.json();
@@ -45,7 +47,7 @@ export default function ArticlesList({ route }) {
     }
 
     fetchData();
-  }, [selectedAuthor, selectedAffiliation, selectedYear]);
+  }, [selectedAuthor, selectedAffiliation, selectedYear, searchQuery]);
 
 
   // useEffect(() => {
@@ -76,7 +78,7 @@ export default function ArticlesList({ route }) {
         <FilterYearButton route='filter-year-list' getFilterOptions={setSelectedYear} filterType='Year'></FilterYearButton>
         {/* <FilterButton getFilterOptions={setSelectedAuthor} filterType='Funding'></FilterButton> */}
         {/* <FilterButton setFilterOptions={setSelectedAuthor} filterType='Sort' icon={icoSort}></FilterButton> */}
-        <Search></Search>
+        <Search getSearchQuery={setSearchQuery}></Search>
       </div>
       <CardContainer disablePd='1' disableHover='1'>
         <table className="w-full">

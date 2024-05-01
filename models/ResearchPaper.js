@@ -122,6 +122,37 @@ const ResearchPaperSchema = new mongoose.Schema({
   UUID: UUIDSchema
 });
 
+ResearchPaperSchema.index({
+  "Title": "text",
+  "Year": "text",
+  "Source title": "text",
+  "Volume": "text",
+  "Issue": "text",
+  "Page start": "text",
+  "Page end": "text",
+  "DOI": "text",
+  "Funding Details": "text",
+  "References": "text",
+  "Correspondence Address": "text",
+  "Editors": "text",
+  "Sponsors": "text",
+  "Publisher": "text",
+  "Conference name": "text",
+  "Conference date": "text",
+  "Conference location": "text",
+  "CODEN": "text",
+  "PubMed ID": "text",
+  "Language of Original Document": "text",
+  "Abbreviated Source Title": "text",
+  "Document Type": "text",
+  "Publication Stage": "text",
+  "Open Access": "text",
+  "Source": "text",
+  "EID": "text",
+  "Funding Text": "text"
+}, {
+  name: "searchIndex"
+});
 
 
 
