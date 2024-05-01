@@ -9,17 +9,30 @@ export const GET = async () => {
     await dbConnect(); // Assuming dbConnect is a function that establishes the Mongoose connection
     const distinctAuthorsCount = await ResearchPaper.aggregate([
       {
-        $unwind: "$Authors",
+        $project: {
+          authors: {
+            $filter: {
+              input: ["$Authors.a1", "$Authors.a2", "$Authors.a3", "$Authors.a4", "$Authors.a5", "$Authors.a6", "$Authors.a7", "$Authors.a8", "$Authors.a9", "$Authors.a10", "$Authors.a11", "$Authors.a12", "$Authors.a13", "$Authors.a14", "$Authors.a15", "$Authors.a16", "$Authors.a17", "$Authors.a18", "$Authors.a19", "$Authors.a20"],
+              as: "author",
+              cond: { $ne: ["$$author", null] }
+            }
+          }
+        }
+      },
+      {
+        $unwind: "$authors"
       },
       {
         $group: {
-          _id: "$Authors",
-          count: { $sum: 1 },
-        },
+          _id: "$authors"
+        }
       },
       {
-        $count: "count",
-      },
+        $group: {
+          _id: null,
+          count: { $sum: 1 }
+        }
+      }
     ]);
 
     return NextResponse.json(
