@@ -23,7 +23,7 @@ export default function DialogData({ data, setDialog, disableAuthor }) {
             <td>
               <div className="flex flex-wrap gap-2">
                 {disableAuthor ? null :
-                  Object.values(data.Authors[0]).map((item, index) => (
+                  Object.values(data.Authors).map((item, index) => (
                     <span key={index} className="text-xs border-[1px] rounded-md px-2 py-1">{item}</span>
                   ))
                 }
@@ -41,7 +41,7 @@ export default function DialogData({ data, setDialog, disableAuthor }) {
             <td>
               <div className="flex flex-wrap gap-2">
                 {disableAuthor ? null :
-                  Object.values(data.Affiliations[0]).map((item, index) => (
+                  Object.values(data.Affiliations).map((item, index) => (
                     <span key={index} className="text-xs border-[1px] rounded-md px-2 py-1">{truncateComma(item)}</span>
                   ))
                 }

@@ -36,7 +36,7 @@ export default function CustomTooltip({ data, children }) {
             <td className="align-top mr-4 block"><span>Authors</span></td>
             <td>
               <div className="flex flex-wrap gap-2">
-                {Object.values(data.Authors[0]).map((item, index) => (
+                {Object.values(data.Authors).map((item, index) => (
                   <span key={index} className="text-xs border-[1px] rounded-md px-2 py-1">{item}</span>
                 ))}
               </div>
@@ -48,7 +48,7 @@ export default function CustomTooltip({ data, children }) {
             <td className="align-top mr-4 block"><span>Affiliations</span></td>
             <td>
               <div className="flex flex-wrap gap-2">
-                {Object.values(data.Affiliations[0]).map((item, index) => (
+                {Object.values(data.Affiliations).map((item, index) => (
                   <span key={index} className={`text-xs border-[1px] rounded-md p-2 ${containsPesUniversity(item) ? 'bg-bluish-gray' : ''}`}>{truncateComma(item)}</span>
                 ))}
                 {console.log(data)}
