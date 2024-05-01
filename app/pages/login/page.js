@@ -13,15 +13,19 @@ export default function Login() {
         // Check if email and password match the predefined credentials
         if (email === 'faculty@pes.com' && password === 'password') {
             // Authentication successful, navigate to facultyPanel page
+            setLoginState();
             window.location.href = '/pages/facultyPanel'; // Use window.location for client-side navigation
         }
         else if (email === 'dean@pes.com' && password === 'password') {
+            setLoginState();
             window.location.href = '/pages/deanPanel';
         }
         else if (email === 'vc@pes.com' && password === 'password') {
+            setLoginState();
             window.location.href = '/pages/deanPanel';
         }
         else if (email === 'librarian@pes.com' && password === 'password') {
+            setLoginState();
             window.location.href = '/pages/deanPanel';
         } else {
             // Display error message or handle invalid credentials
@@ -35,6 +39,10 @@ export default function Login() {
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
+    }
+
+    const setLoginState = () => {
+        localStorage.setItem('loginState', true);
     }
 
     return (

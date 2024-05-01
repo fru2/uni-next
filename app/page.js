@@ -11,24 +11,23 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <main className="px-4 sm:px-6 lg:px-8 bg-gray-50 mt-[4.5rem]">
+      <main className="px-4 sm:px-6 lg:px-8 bg-gray-50 mt-[4.5rem] flex w-full gap-8">
 
-        <h3 className="text-2xl pt-6 mb-4">Overview</h3>
-
-        <div className="grid grid-cols-4 grid-rows-2 gap-2">
-          <StatsCard icon={iconStats} heading='Total publications' subhead='Articles published by PES' route='paperCount'/>
-          <StatsCard icon={iconStats} heading='Card context goes here' subhead='Short desc' />
+        <div className="flex flex-col gap-2">
+          <h3 className="text-2xl pt-6 mb-4">Overview</h3>
+          <StatsCard icon={iconStats} heading='Total publications' subhead='Articles published by PES' route='paperCount' />
+          <StatsCard icon={iconStats} heading='Author count' subhead='Number of distinct authors' route='totalAuthors' />
           <div className="col-span-2 row-span-2">
-            <BarChartComp title='Publications per year' route='yearCount'/>
+            <BarChartComp title='Publications per year' route='yearCount' />
           </div>
-          <StatsCard icon={iconStats} heading='Card context goes here' subhead='Short desc' />
-          <StatsCard icon={iconStats} heading='Card context goes here' subhead='Short desc' />
         </div>
 
-        <h3 className="text-2xl mt-6 mb-4">Articles</h3>
 
-        <ArticlesList route='researchpaper'></ArticlesList>
-        <div className="h-6"></div>
+        <div className="flex-1">
+          <h3 className="text-2xl mt-6 mb-4">Articles</h3>
+          <ArticlesList route='researchpaper'></ArticlesList>
+          <div className="h-6"></div>
+        </div>
       </main>
     </>
   );

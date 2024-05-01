@@ -6,9 +6,9 @@ function OutlineButton({link, text}) {
   )
 }
 
-function SolidButton({link, text, style}) {
+function SolidButton({link, text, style, click}) {
   return (
-    <a href={link} className={`bg-deep-blue px-3 py-2 w-max rounded text-sm font-medium flex items-center justify-center hover:bg-deep-blue-hover ${style}`}><span className='text-white'>{text}</span></a>
+    <a href={link} onClick={click} className={`bg-deep-blue px-3 py-2 w-max rounded text-sm font-medium flex items-center justify-center hover:bg-deep-blue-hover ${style}`}><span className='text-white'>{text}</span></a>
   )
 }
 
