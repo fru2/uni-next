@@ -18,12 +18,12 @@ export const GET = async () => {
         },
       },
       {
-        $count: "totalDistinctAuthors",
+        $count: "count",
       },
     ]);
 
     return NextResponse.json(
-      { totalDistinctAuthors: distinctAuthorsCount[0].totalDistinctAuthors },
+      { count: distinctAuthorsCount[0].count },
       { status: 200 }
     );
   } catch (error) {

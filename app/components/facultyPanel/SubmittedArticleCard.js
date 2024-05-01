@@ -29,7 +29,7 @@ export default function SubmittedArticleCard({ title, status, remarks }) {
     }
 
     return (
-        <td className='flex justify-between w-full items-center'>
+        <td className='flex justify-between w-full items-center gap-2'>
             <div>
                 <span>{title}</span>
             </div>

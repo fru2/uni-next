@@ -51,3 +51,7 @@ body {
 .status-table tr:first-child {
   padding-top: 0;
 }
+
+.acc{
+  width: 100%;
+}

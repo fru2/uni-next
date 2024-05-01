@@ -14,13 +14,16 @@ import icoCal from "@/app/icons/calendar_today.svg";
 
 
 export default function ArticlesList({ route }) {
+
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
   const [dataItems, setDataItems] = useState([]);
   const cardRef = useRef(null);
   const [showDialog, setShowDialog] = useState(false);
   const [dataItem, setDataItem] = useState(null);
 
   const [page, setPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +42,11 @@ export default function ArticlesList({ route }) {
 
     fetchData();
   }, [route]);
+
+
+  useEffect(()=>{
+    console.log(selectedFilters);
+  }, [selectedFilters]);
 
   const handleRowClick = (item) => {
     setDataItem(item);
@@ -59,14 +67,40 @@ export default function ArticlesList({ route }) {
     page * itemsPerPage
   );
 
+// Function to filter data items
+const filterDataItems = () => {
+  return dataItems.filter(item => {
+    // Check if any field in the item matches any filter keyword
+    const foundMatch = selectedFilters.some(keyword => {
+      // Convert item to an array of values
+      const itemValues = Object.values(item).flatMap(value => {
+        if (typeof value === 'object') {
+          return Object.values(value);
+        }
+        return [value];
+      });
+      // Check if any item value includes the keyword
+      return itemValues.some(value => {
+        if (typeof value === 'string') {
+          return value.includes(keyword);
+        }
+        return false;
+      });
+    });
+    return foundMatch;
+  });
+};
+
+
+
   return (
     <>
       <div className="flex gap-2 mb-4">
-        <FilterButton filterType='Authors' icon={icoUser}></FilterButton>
-        <FilterButton filterType='Affiliations' icon={icoEdu}></FilterButton>
-        <FilterButton filterType='Year' icon={icoCal}></FilterButton>
-        <FilterButton filterType='Funding' icon={icoFund}></FilterButton>
-        <FilterButton filterType='Sort' icon={icoSort}></FilterButton>
+        <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Authors' icon={icoUser}></FilterButton>
+        <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Affiliations' icon={icoEdu}></FilterButton>
+        <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Year' icon={icoCal}></FilterButton>
+        <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Funding' icon={icoFund}></FilterButton>
+        {/* <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Sort' icon={icoSort}></FilterButton> */}
         <Search></Search>
       </div>
       <CardContainer disablePd='1' disableHover='1'>

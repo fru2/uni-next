@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import icoCheck from '@/app/icons/check.svg';
 import icoCross from '@/app/icons/close.svg';
 
-export default function ApproveArticle({ data, user }) {
+export default function ApproveArticle({ data, user, title, status }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [remarks, setRemarks] = useState('');
 
@@ -35,12 +35,12 @@ export default function ApproveArticle({ data, user }) {
     <td className='flex justify-between w-full items-center'>
       <div className='flex-1 overflow-hidden text-ellipsis'>
         <span className=''>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis molestiae quibusdam nam nulla consequuntur veniam quae nobis, architecto unde minima quo modi repellendus facilis voluptatum ullam velit, ad voluptas odit.
+          {title}
         </span>
       </div>
 
       <div className='flex gap-2'>
-        <IconButton aria-label='approve'>
+        <IconButton aria-label='approve' className='z-10'>
           <Image src={icoCheck} alt='' />
         </IconButton>
         <IconButton aria-label='reject' onClick={handleRejectClick}>
