@@ -3,12 +3,11 @@ import { dbConnect } from "../../../db";
 import ResearchPaper from "@/models/ResearchPaper";
 
 export const GET = async (req) => {
-  // 'use server';
-  
   const url = new URL(req.url);
   const searchString = url.searchParams.get('searchString');
 
   await dbConnect();
+
   try {
     const authorsContainingString = await ResearchPaper.aggregate([
       {
@@ -20,6 +19,14 @@ export const GET = async (req) => {
       },
       {
         $unwind: "$authors"
+      },
+      {
+        $match: {
+          "authors.v": { $regex: searchString, $options: 'i' }
+        }
+      },
+      {
+        $limit: 10
       },
       {
         $group: {
@@ -35,22 +42,15 @@ export const GET = async (req) => {
           authors: 1
         }
       },
-      {
-        $unwind: "$authors"
-      },
-      {
-        $match: {
-          authors: { $regex: searchString, $options: 'i' }
-        }
-      }
     ]);
 
     if (authorsContainingString.length === 0) {
       return new NextResponse("No authors found containing the provided string", { status: 404 });
     }
 
-    return new NextResponse(JSON.stringify(authorsContainingString[0].Authors), { status: 200 });
+    return new NextResponse(JSON.stringify(authorsContainingString[0].authors), { status: 200 });
   } catch (error) {
+    console.error("Error in fetching authors:", error);
     return new NextResponse("Error in fetching authors: " + error, { status: 500 });
   }
 };

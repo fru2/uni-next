@@ -96,7 +96,7 @@ const filterDataItems = () => {
   return (
     <>
       <div className="flex gap-2 mb-4">
-        <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Authors' icon={icoUser}></FilterButton>
+        <FilterButton route='filter-author-list' data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Authors' icon={icoUser}></FilterButton>
         <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Affiliations' icon={icoEdu}></FilterButton>
         <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Year' icon={icoCal}></FilterButton>
         <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Funding' icon={icoFund}></FilterButton>

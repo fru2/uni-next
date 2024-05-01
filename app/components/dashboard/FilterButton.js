@@ -1,31 +1,41 @@
-
 import Image from "next/image";
-import CardContainer from "../CardContainer";
 import { useState } from "react";
 import iconExpand from '@/app/icons/expand_more.svg';
 import iconCross from '@/app/icons/bxs-x-circle.svg';
-import { Autocomplete, IconButton, Popover, TextField, Button } from "@mui/material";
+import { Autocomplete, IconButton, Popover, TextField } from "@mui/material";
 
-
-const filterOptions = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'];
-
-export default function FilterButton({ filterType, icon }) {
-
+export default function FilterButton({ filterType, route }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [filterOptions, setFilterOptions] = useState([]);
 
-  const minWidth = filterType.length * 8;
+  const fetchOptions = async (search) => {
+    if (!search.trim()) {
+      setFilterOptions([]);
+    }
+    else{
+      try {
+        const response = await fetch(`/api/${route}?searchString=${search}`);
+        if (response.ok) {
+          const data = await response.json();
+          setFilterOptions(data);
+        } else {
+          throw new Error('Failed to fetch data');
+        }
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    }
+  };
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // Function to handle closing popover
   const handlePopoverClose = () => {
     setAnchorEl(null);
   };
 
-  // Function to handle selecting/deselecting a filter option
   const handleFilterSelection = (option) => {
     if (selectedFilters.includes(option)) {
       setSelectedFilters(selectedFilters.filter((filter) => filter !== option));
@@ -34,7 +44,6 @@ export default function FilterButton({ filterType, icon }) {
     }
   };
 
-  // Function to clear all selected filters
   const clearFilters = () => {
     setSelectedFilters([]);
     handlePopoverClose();
@@ -44,18 +53,15 @@ export default function FilterButton({ filterType, icon }) {
 
   return (
     <>
-      <div onClick={handlePopoverOpen} className={`bg-white border-[1px] rounded-lg w-fit px-4 py-4 hover:bg-blue-50 hover:border-blue-500 cursor-pointer
-            ${selectedFilters.length != 0 ? ' bg-light-blue border-blue-500' : ''}`}>
-        <span className="">{filterType}</span>
-        <Image className={`inline h-5 w-5 ml-2 hover:opacity-60 ${selectedFilters.length != 0 ? 'icon-blue' : ''}`} src={selectedFilters.length != 0 ? iconCross : iconExpand} alt="" onClick={clearFilters}></Image>
+      <div onClick={handlePopoverOpen} className={`bg-white border-[1px] rounded-lg w-fit px-4 py-4 hover:bg-blue-50 hover:border-blue-500 cursor-pointer ${selectedFilters.length !== 0 ? ' bg-light-blue border-blue-500' : ''}`}>
+        <span>{filterType}</span>
+        <Image className={`inline h-5 w-5 ml-2 hover:opacity-60 ${selectedFilters.length !== 0 ? 'icon-blue' : ''}`} src={selectedFilters.length !== 0 ? iconCross : iconExpand} alt="" onClick={clearFilters} />
       </div>
-
 
       <Popover
         open={open}
         anchorEl={anchorEl}
         onClose={handlePopoverClose}
-
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
@@ -66,7 +72,6 @@ export default function FilterButton({ filterType, icon }) {
         }}
       >
         <div className="min-w-48 flex gap-4">
-          {/* <Image className="h-5 w-5" src={icon} alt=''></Image> */}
           <Autocomplete
             className="flex-1"
             multiple
@@ -75,6 +80,7 @@ export default function FilterButton({ filterType, icon }) {
             options={filterOptions}
             defaultValue={selectedFilters}
             onChange={(event, value) => setSelectedFilters(value)}
+            onInputChange={(event, inputValue) => fetchOptions(inputValue)} // Fetch options on input change
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -86,5 +92,5 @@ export default function FilterButton({ filterType, icon }) {
         </div>
       </Popover>
     </>
-  )
+  );
 }
