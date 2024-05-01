@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import iconExpand from '@/app/icons/expand_more.svg';
 import iconCross from '@/app/icons/bxs-x-circle.svg';
 import { Autocomplete, IconButton, Popover, TextField } from "@mui/material";
 
-export default function FilterButton({ filterType, route }) {
+export default function FilterButton({ filterType, route, getFilterOptions }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [filterOptions, setFilterOptions] = useState([]);
@@ -27,6 +27,10 @@ export default function FilterButton({ filterType, route }) {
       }
     }
   };
+
+  useEffect(()=>{
+    getFilterOptions(selectedFilters);
+  }, [selectedFilters]);
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);

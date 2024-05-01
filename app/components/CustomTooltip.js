@@ -51,7 +51,6 @@ export default function CustomTooltip({ data, children }) {
                 {Object.values(data.Affiliations).map((item, index) => (
                   <span key={index} className={`text-xs border-[1px] rounded-md p-2 ${containsPesUniversity(item) ? 'bg-bluish-gray' : ''}`}>{truncateComma(item)}</span>
                 ))}
-                {console.log(data)}
               </div>
             </td>
           </tr>

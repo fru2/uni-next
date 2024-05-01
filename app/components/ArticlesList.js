@@ -15,7 +15,9 @@ import icoCal from "@/app/icons/calendar_today.svg";
 
 export default function ArticlesList({ route }) {
 
-  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedAuthor, setSelectedAuthor] = useState([]);
+  const [selectedAffiliation, setSelectedAffiliation] = useState([]);
+  const [selectedYear, setSelectedYear] = useState([]);
 
   const [dataItems, setDataItems] = useState([]);
   const cardRef = useRef(null);
@@ -28,7 +30,13 @@ export default function ArticlesList({ route }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/${route}`);
+        const authorsUrl = selectedAuthor.map(author => `authors=${encodeURIComponent(author)}`).join('&');
+        const affiliationsUrl = selectedAffiliation.map(affiliation => `affiliation=${encodeURIComponent(affiliation)}`).join('&');
+        const yearsUrl = selectedYear.map(year => `year=${encodeURIComponent(year)}`).join('&');
+        
+
+        const response = await fetch(`/api/${route}?${authorsUrl}`);
+
         if (response.ok) {
           const data = await response.json();
           setDataItems(data);
@@ -41,12 +49,12 @@ export default function ArticlesList({ route }) {
     }
 
     fetchData();
-  }, [route]);
+  }, [selectedAuthor]);
 
 
-  useEffect(()=>{
-    console.log(selectedFilters);
-  }, [selectedFilters]);
+  // useEffect(() => {
+  //   console.log(selectedAuthor);
+  // }, [selectedAuthor]);
 
   const handleRowClick = (item) => {
     setDataItem(item);
@@ -57,50 +65,21 @@ export default function ArticlesList({ route }) {
     setPage(newPage);
   };
 
-  // const handleItemsPerPageChange = (event) => {
-  //   setItemsPerPage(parseInt(event.target.value, 10));
-  //   setPage(1); // Reset to first page when changing items per page
-  // };
-
   const displayedItems = dataItems.slice(
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
-
-// Function to filter data items
-const filterDataItems = () => {
-  return dataItems.filter(item => {
-    // Check if any field in the item matches any filter keyword
-    const foundMatch = selectedFilters.some(keyword => {
-      // Convert item to an array of values
-      const itemValues = Object.values(item).flatMap(value => {
-        if (typeof value === 'object') {
-          return Object.values(value);
-        }
-        return [value];
-      });
-      // Check if any item value includes the keyword
-      return itemValues.some(value => {
-        if (typeof value === 'string') {
-          return value.includes(keyword);
-        }
-        return false;
-      });
-    });
-    return foundMatch;
-  });
-};
 
 
 
   return (
     <>
       <div className="flex gap-2 mb-4">
-        <FilterButton route='filter-author-list' data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Authors' icon={icoUser}></FilterButton>
-        <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Affiliations' icon={icoEdu}></FilterButton>
-        <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Year' icon={icoCal}></FilterButton>
-        <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Funding' icon={icoFund}></FilterButton>
-        {/* <FilterButton data={dataItems} filtOptions={selectedFilters} setFilterOptions={setSelectedFilters} filterType='Sort' icon={icoSort}></FilterButton> */}
+        <FilterButton route='filter-author-list' getFilterOptions={setSelectedAuthor} filterType='Authors'></FilterButton>
+        <FilterButton getFilterOptions={setSelectedAuthor} filterType='Affiliations'></FilterButton>
+        <FilterButton getFilterOptions={setSelectedAuthor} filterType='Year'></FilterButton>
+        {/* <FilterButton getFilterOptions={setSelectedAuthor} filterType='Funding'></FilterButton> */}
+        {/* <FilterButton setFilterOptions={setSelectedAuthor} filterType='Sort' icon={icoSort}></FilterButton> */}
         <Search></Search>
       </div>
       <CardContainer disablePd='1' disableHover='1'>
