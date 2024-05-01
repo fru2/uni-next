@@ -6,11 +6,6 @@ import { Pagination, Dialog } from "@mui/material";
 import DialogData from "./DialogContent";
 import FilterButton from "./dashboard/FilterButton";
 import Search from "./dashboard/Search";
-import icoUser from "@/app/icons/person.svg";
-import icoFund from "@/app/icons/attach_money.svg";
-import icoEdu from "@/app/icons/history_edu.svg";
-import icoSort from "@/app/icons/sort.svg";
-import icoCal from "@/app/icons/calendar_today.svg";
 
 
 export default function ArticlesList({ route }) {
@@ -31,25 +26,25 @@ export default function ArticlesList({ route }) {
     const fetchData = async () => {
       try {
         const authorsUrl = selectedAuthor.map(author => `authors=${encodeURIComponent(author)}`).join('&');
-        const affiliationsUrl = selectedAffiliation.map(affiliation => `affiliation=${encodeURIComponent(affiliation)}`).join('&');
-        const yearsUrl = selectedYear.map(year => `year=${encodeURIComponent(year)}`).join('&');
+        const affiliationsUrl = selectedAffiliation.map(affiliation => `affiliations=${encodeURIComponent(affiliation)}`).join('&');
+        const yearsUrl = selectedYear.map(year => `years=${encodeURIComponent(year)}`).join('&');
         
 
-        const response = await fetch(`/api/${route}?${authorsUrl}`);
+        const response = await fetch(`/api/${route}?${authorsUrl}&${affiliationsUrl}`);
 
         if (response.ok) {
           const data = await response.json();
           setDataItems(data);
         } else {
           throw new Error('Failed to fetch data');
-        }
+        } 
       } catch (error) {
         console.error("Error fetching data", error);
       }
     }
 
     fetchData();
-  }, [selectedAuthor]);
+  }, [selectedAuthor, selectedAffiliation]);
 
 
   // useEffect(() => {
@@ -76,7 +71,7 @@ export default function ArticlesList({ route }) {
     <>
       <div className="flex gap-2 mb-4">
         <FilterButton route='filter-author-list' getFilterOptions={setSelectedAuthor} filterType='Authors'></FilterButton>
-        <FilterButton getFilterOptions={setSelectedAuthor} filterType='Affiliations'></FilterButton>
+        <FilterButton route='filter-affiliation-list' getFilterOptions={setSelectedAffiliation} filterType='Affiliations'></FilterButton>
         <FilterButton getFilterOptions={setSelectedAuthor} filterType='Year'></FilterButton>
         {/* <FilterButton getFilterOptions={setSelectedAuthor} filterType='Funding'></FilterButton> */}
         {/* <FilterButton setFilterOptions={setSelectedAuthor} filterType='Sort' icon={icoSort}></FilterButton> */}
