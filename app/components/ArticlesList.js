@@ -6,6 +6,7 @@ import { Pagination, Dialog } from "@mui/material";
 import DialogData from "./DialogContent";
 import FilterButton from "./dashboard/FilterButton";
 import Search from "./dashboard/Search";
+import FilterYearButton from "./dashboard/FilterYearButton";
 
 
 export default function ArticlesList({ route }) {
@@ -27,10 +28,10 @@ export default function ArticlesList({ route }) {
       try {
         const authorsUrl = selectedAuthor.map(author => `authors=${encodeURIComponent(author)}`).join('&');
         const affiliationsUrl = selectedAffiliation.map(affiliation => `affiliations=${encodeURIComponent(affiliation)}`).join('&');
-        const yearsUrl = selectedYear.map(year => `years=${encodeURIComponent(year)}`).join('&');
+        const yearsUrl = selectedYear.map(year => `years=${year}`).join('&');
         
 
-        const response = await fetch(`/api/${route}?${authorsUrl}&${affiliationsUrl}`);
+        const response = await fetch(`/api/${route}?${authorsUrl}&${affiliationsUrl}&${yearsUrl}`);
 
         if (response.ok) {
           const data = await response.json();
@@ -44,7 +45,7 @@ export default function ArticlesList({ route }) {
     }
 
     fetchData();
-  }, [selectedAuthor, selectedAffiliation]);
+  }, [selectedAuthor, selectedAffiliation, selectedYear]);
 
 
   // useEffect(() => {
@@ -72,7 +73,7 @@ export default function ArticlesList({ route }) {
       <div className="flex gap-2 mb-4">
         <FilterButton route='filter-author-list' getFilterOptions={setSelectedAuthor} filterType='Authors'></FilterButton>
         <FilterButton route='filter-affiliation-list' getFilterOptions={setSelectedAffiliation} filterType='Affiliations'></FilterButton>
-        <FilterButton getFilterOptions={setSelectedAuthor} filterType='Year'></FilterButton>
+        <FilterYearButton route='filter-year-list' getFilterOptions={setSelectedYear} filterType='Year'></FilterYearButton>
         {/* <FilterButton getFilterOptions={setSelectedAuthor} filterType='Funding'></FilterButton> */}
         {/* <FilterButton setFilterOptions={setSelectedAuthor} filterType='Sort' icon={icoSort}></FilterButton> */}
         <Search></Search>
