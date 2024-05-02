@@ -5,9 +5,15 @@ import CardContainer from '@/app/components/CardContainer';
 import SubmittedArticleCard from '@/app/components/facultyPanel/SubmittedArticleCard';
 import AddArticleForm from '@/app/components/facultyPanel/AddArticleForm';
 import Nav from '@/app/components/Nav';
-import { Button, Dialog } from '@mui/material';
+import { Box, Button, Dialog } from '@mui/material';
 import axios from 'axios';
 import DialogData from '@/app/components/DialogContent';
+
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+
 
 
 export default function Page() {
@@ -19,6 +25,12 @@ export default function Page() {
 
   const [showDialog, setShowDialog] = useState(false);
   const [dataItem, setDataItem] = useState(null);
+
+  const [value, setValue] = useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
 
   useEffect(() => {
@@ -46,38 +58,52 @@ export default function Page() {
       <Nav disable></Nav>
       <main className='px-4 sm:px-6 lg:px-8 bg-gray-50 mt-[4.5rem]'>
 
-        <h3 className="text-2xl pt-6 mb-4">Submitted article</h3>
+        <TabContext value={value}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <TabList onChange={handleChange} aria-label="lab API tabs example">
+              <Tab label="Submitted article" value="1" />
+              <Tab label="Add articles" value="2" />
+            </TabList>
+          </Box>
+
+          <TabPanel value="1">
+            <div className="mt-[-1rem] mb-4"></div>
+            <CardContainer disableHover='1'>
+              <table className='w-full status-table'>
+                <tbody className=''>
+                  {dataList.length === 0
+                    ? <tr><td>No data found</td></tr>
+                    : dataList.map((value, index) => (
+                      <tr className='border-b flex py-4 cursor-pointer' key={index} onClick={() => handleRowClick(value)}>
+                        <SubmittedArticleCard title={value.Title} status={handleStatus(value)}></SubmittedArticleCard>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+                <Dialog
+                  open={showDialog}
+                  onClose={() => setShowDialog(false)}
+                  scroll="paper"
+                  maxWidth="lg"
+                >
+                  <DialogData data={dataItem} setDialog={setShowDialog} disableAuthor></DialogData>
+                </Dialog>
+              </table>
+            </CardContainer>
+          </TabPanel>
 
 
-        {console.log(dataList)}
+          <TabPanel value="2">
+            <div className="mt-[-1rem] mb-4"></div>
+            <CardContainer disableHover='1'>
+              <AddArticleForm data={dataList} setData={setDataList}></AddArticleForm>
+            </CardContainer>
+          </TabPanel>
+        </TabContext>
 
-        <CardContainer disableHover='1'>
-          <table className='w-full status-table'>
-            <tbody className=''>
-              {dataList.length === 0
-                ? <tr><td>No data found</td></tr>
-                : dataList.map((value, index) => (
-                  <tr className='border-b flex py-4 cursor-pointer' key={index} onClick={() => handleRowClick(value)}>
-                    <SubmittedArticleCard title={value.Title} status={handleStatus(value)}></SubmittedArticleCard>
-                  </tr>
-                ))
-              }
-            </tbody>
-            <Dialog
-              open={showDialog}
-              onClose={() => setShowDialog(false)}
-              scroll="paper"
-              maxWidth="lg"
-            >
-              <DialogData data={dataItem} setDialog={setShowDialog} disableAuthor></DialogData>
-            </Dialog>
-          </table>
-        </CardContainer>
 
-        <h3 className="text-2xl pt-6 mb-4">Add articles</h3>
-        <CardContainer disableHover='1'>
-          <AddArticleForm data={dataList} setData={setDataList}></AddArticleForm>
-        </CardContainer>
+
+
       </main>
     </>
   )
