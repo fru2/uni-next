@@ -55,7 +55,7 @@ export default function Page() {
 
   return (
     <>
-      <Nav disable></Nav>
+      <Nav></Nav>
       <main className='px-4 sm:px-6 lg:px-8 bg-gray-50 mt-[4.5rem]'>
 
         <TabContext value={value}>
